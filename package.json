@@ -1,0 +1,23 @@
+{
+  "name": "car-pricing",
+  "version": "1.0.0",
+  "description": "Get and store car prices",
+  "main": "server.ts",
+  "dependencies": {
+    "typescript": "^4.5.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cherylchua/car-pricing.git"
+  },
+  "author": "Cheryl Chua",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cherylchua/car-pricing/issues"
+  },
+  "homepage": "https://github.com/cherylchua/car-pricing#readme"
+}
