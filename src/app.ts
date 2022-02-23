@@ -1,21 +1,30 @@
 import express, { Application } from 'express';
+import { PricingProvider } from './clients/pricingProvider';
 import { HealthcheckController } from './controllers/healthcheck';
+import { PricingController } from './controllers/pricing';
+import { PricingService } from './services/pricing';
 
 async function initialiseDependencies() {
+    const pricingProvider = new PricingProvider();
+    const pricingService = new PricingService(pricingProvider);
+
     const healthcheckController = new HealthcheckController();
+    const pricingController = new PricingController(pricingService);
 
     return {
-        healthcheckController
+        healthcheckController,
+        pricingController
     };
 }
 
-async function setupRoutes(app: Application): Promise<void> {
-    const { healthcheckController } = await initialiseDependencies();
+async function setupRoutes(app: Application) {
+    const { healthcheckController, pricingController } = await initialiseDependencies();
 
     app.use(healthcheckController.getRouter());
+    app.use(pricingController.getRouter());
 }
 
-export async function createApp(): Promise<Application> {
+export async function createApp(): Promise<express.Application> {
     const app = express();
 
     app.set('port', 3000);

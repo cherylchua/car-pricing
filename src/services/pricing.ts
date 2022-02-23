@@ -1,7 +1,8 @@
 import { IPricingProvider } from '../clients/pricingProvider';
+import { GetPriceResponse } from '../entities/pricing';
 
 export interface IPricingService {
-    getPriceByNumberPlate(numberPlate: string, skipCacheForRead?: boolean): Promise<number>;
+    getPriceByNumberPlate(numberPlate: string, skipCacheForRead?: boolean): Promise<GetPriceResponse>;
 }
 
 export class PricingService implements IPricingService {
@@ -11,7 +12,12 @@ export class PricingService implements IPricingService {
         this.pricingClient = pricingClient;
     }
 
-    async getPriceByNumberPlate(numberPlate: string, skipCacheForRead = true): Promise<number> {
-        return await this.pricingClient.getExternalPrice(numberPlate);
+    async getPriceByNumberPlate(numberPlate: string, skipCacheForRead = true): Promise<GetPriceResponse> {
+        const price = await this.pricingClient.getExternalPrice(numberPlate);
+
+        return {
+            numberPlate: numberPlate,
+            price: price
+        };
     }
 }

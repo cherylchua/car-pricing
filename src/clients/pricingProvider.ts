@@ -20,7 +20,9 @@ export class PricingProvider implements IPricingProvider {
                 url: `/prices/${numberPlate}`
             };
 
-            const { data } = await axios.request(requestConfig);
+            // const { data } = await axios.request(requestConfig);
+
+            const data = { price: '20000' };
 
             // assuming the returned response from 3rd party is { price: <some number> }
             if (Number(data.price) === NaN) {
