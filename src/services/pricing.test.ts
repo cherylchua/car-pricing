@@ -2,8 +2,8 @@ import { PricingProvider } from '../clients/pricingProvider';
 import { PricingService } from './pricing';
 
 describe('PricingService', () => {
-    const pricingProvider = new PricingProvider();
-    const pricingService = new PricingService(pricingProvider);
+    const mockPricingProvider = new PricingProvider();
+    const mockPricingService = new PricingService(mockPricingProvider);
 
     const mockNumberPlate = 'ABC123';
 
@@ -11,10 +11,10 @@ describe('PricingService', () => {
         it('should call the 3rd party client to get price by number plate', async () => {
             PricingProvider.prototype.getExternalPrice = jest.fn().mockResolvedValueOnce(15000);
 
-            const res = await pricingService.getPriceByNumberPlate(mockNumberPlate);
+            const res = await mockPricingService.getPriceByNumberPlate(mockNumberPlate);
 
-            expect(pricingProvider.getExternalPrice).toBeCalledTimes(1);
-            expect(pricingProvider.getExternalPrice).toBeCalledWith(mockNumberPlate);
+            expect(mockPricingProvider.getExternalPrice).toBeCalledTimes(1);
+            expect(mockPricingProvider.getExternalPrice).toBeCalledWith(mockNumberPlate);
             expect(res).toEqual(15000);
         });
     });

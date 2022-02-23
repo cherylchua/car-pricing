@@ -1,5 +1,5 @@
 import express, { Application } from 'express';
-import { HealthcheckController } from './controllers.ts/healthcheck';
+import { HealthcheckController } from './controllers/healthcheck';
 
 async function initialiseDependencies() {
     const healthcheckController = new HealthcheckController();

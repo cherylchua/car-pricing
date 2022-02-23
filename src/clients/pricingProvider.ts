@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosError } from 'axios';
-import { CustomError } from '../utils/error';
+import { CustomError, ErrorCodes } from '../utils/error';
 
 export interface IPricingProvider {
     getExternalPrice(numberPlate: string): Promise<number>;
@@ -24,16 +24,14 @@ export class PricingProvider implements IPricingProvider {
 
             // assuming the returned response from 3rd party is { price: <some number> }
             if (Number(data.price) === NaN) {
-                throw new CustomError('PRICING_PROVIDER_ERROR', `Price is not a number`, { data });
+                throw new CustomError(ErrorCodes.PRICING_PROVIDER_ERROR, `Price is not a number`, { data });
             }
 
             return Number(data.price);
         } catch (err) {
-            if (axios.isAxiosError(err)) {
-                throw new CustomError('PRICING_PROVIDER_ERROR', `Unable to get pricing from ${this.baseURL}`, { err });
-            }
-
-            throw err;
+            throw new CustomError(ErrorCodes.PRICING_PROVIDER_ERROR, `Unable to get pricing from ${this.baseURL}`, {
+                err
+            });
         }
     }
 }

@@ -10,3 +10,7 @@ export class CustomError extends Error {
         this.context = context;
     }
 }
+
+export enum ErrorCodes {
+    PRICING_PROVIDER_ERROR = 'PRICING_PROVIDER_ERROR'
+}
