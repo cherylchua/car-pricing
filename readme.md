@@ -18,7 +18,7 @@ A pricing application that features:
 
 ### Setup and run locally
 
-Prerequisites: Node v12
+Prerequisites: Node v12, Redis 
 
 1. Create your own `.env` file in the root project folder containing the same environment variables as `.env.example` and populate it with your values
 2. Run `npm install` to download dependencies
