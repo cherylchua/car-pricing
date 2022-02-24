@@ -3,8 +3,11 @@ import { PricingProvider } from './clients/pricingProvider';
 import { HealthcheckController } from './controllers/healthcheck';
 import { PricingController } from './controllers/pricing';
 import { PricingService } from './services/pricing';
+import { RedisHelper } from './utils/redis';
 
 async function initialiseDependencies() {
+    RedisHelper.initConnection(process.env.REDIS_URL || 'redis://127.0.0.1:6379/0');
+
     const pricingProvider = new PricingProvider();
     const pricingService = new PricingService(pricingProvider);
 
